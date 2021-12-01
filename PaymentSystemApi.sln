@@ -1,6 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentSystemApi", "PaymentSystemApi\PaymentSystemApi.csproj", "{9F74FE05-EDC0-4304-A79C-8312D6D30957}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentSystem.Api", "PaymentSystem.Api\PaymentSystem.Api.csproj", "{9F74FE05-EDC0-4304-A79C-8312D6D30957}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentSystem.Infrastructure", "PaymentSystem.Infrastructure\PaymentSystem.Infrastructure.csproj", "{657C66CA-4550-4409-9EAC-D494DAEEF9C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{D786D517-EBBE-45B5-A656-7A95612A70EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentSystem.Application", "PaymentSystem.Application\PaymentSystem.Application.csproj", "{0AAE98AF-0DE5-4CE3-80C5-6E2436A670C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +18,17 @@ Global
 		{9F74FE05-EDC0-4304-A79C-8312D6D30957}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F74FE05-EDC0-4304-A79C-8312D6D30957}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F74FE05-EDC0-4304-A79C-8312D6D30957}.Release|Any CPU.Build.0 = Release|Any CPU
+		{657C66CA-4550-4409-9EAC-D494DAEEF9C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{657C66CA-4550-4409-9EAC-D494DAEEF9C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{657C66CA-4550-4409-9EAC-D494DAEEF9C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{657C66CA-4550-4409-9EAC-D494DAEEF9C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D786D517-EBBE-45B5-A656-7A95612A70EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D786D517-EBBE-45B5-A656-7A95612A70EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D786D517-EBBE-45B5-A656-7A95612A70EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D786D517-EBBE-45B5-A656-7A95612A70EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AAE98AF-0DE5-4CE3-80C5-6E2436A670C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AAE98AF-0DE5-4CE3-80C5-6E2436A670C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AAE98AF-0DE5-4CE3-80C5-6E2436A670C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AAE98AF-0DE5-4CE3-80C5-6E2436A670C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

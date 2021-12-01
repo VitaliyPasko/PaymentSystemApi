@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PaymentSystem.ApplicationLayer.Services.Payment.Models;
+using PaymentSystem.ApplicationLayer.Services.PaymentService.Models;
 
 namespace PaymentSystem.ApplicationLayer.Data.EntitiesMaps
 {
     public class PaymentMap : IEntityTypeConfiguration<Payment>
     {
-        public void Configure(EntityTypeBuilder<Services.Payment.Models.Payment> builder)
+        public void Configure(EntityTypeBuilder<Payment> builder)
         {
             builder.HasKey(p => p.Id);
             builder.Property(p => p.Id).ValueGeneratedOnAdd().HasMaxLength(36);

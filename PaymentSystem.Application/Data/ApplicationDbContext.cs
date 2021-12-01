@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PaymentSystem.ApplicationLayer.Data.EntitiesMaps;
-using PaymentSystem.ApplicationLayer.Services.Payment.Models;
+using PaymentSystem.ApplicationLayer.Services.PaymentService.Models;
 
 namespace PaymentSystem.ApplicationLayer.Data
 {

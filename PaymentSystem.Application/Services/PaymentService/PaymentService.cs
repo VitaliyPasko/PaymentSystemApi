@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
 using Common.ResponseDtos;
 using Microsoft.Extensions.Primitives;
-using PaymentSystem.ApplicationLayer.Services.Payment.Dto;
-using PaymentSystem.ApplicationLayer.Services.Payment.Interfaces;
+using PaymentSystem.ApplicationLayer.Services.PaymentService.Dto;
+using PaymentSystem.ApplicationLayer.Services.PaymentService.Interfaces;
 
-namespace PaymentSystem.ApplicationLayer.Services.Payment
+namespace PaymentSystem.ApplicationLayer.Services.PaymentService
 {
     public class PaymentService : IPaymentService
     {

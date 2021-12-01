@@ -1,6 +1,6 @@
 ﻿using Common.Enums;
 
-namespace PaymentSystem.ApplicationLayer.Services.Payment.Dto
+namespace PaymentSystem.ApplicationLayer.Services.PaymentService.Dto
 {
     public class PaymentDto
     {

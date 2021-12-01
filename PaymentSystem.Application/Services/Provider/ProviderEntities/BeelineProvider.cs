@@ -1,9 +1,8 @@
 ﻿using Common.Enums;
 using Common.ResponseDtos;
-using PaymentSystem.ApplicationLayer.Providers.Interfaces;
-using PaymentSystem.ApplicationLayer.Services.Payment.Models;
+using PaymentSystem.ApplicationLayer.Services.Provider.ProviderEntities.Interfaces;
 
-namespace PaymentSystem.ApplicationLayer.Providers
+namespace PaymentSystem.ApplicationLayer.Services.Provider.ProviderEntities
 {
     public class BeelineProvider : IProvider
     {
@@ -14,7 +13,7 @@ namespace PaymentSystem.ApplicationLayer.Providers
             ProviderType = ProviderType.Beeline;
         }
         
-        public Response SendPayment(Payment payment)
+        public Response SendPayment(Payment.Models.Payment payment)
         {
             return new Response
             {

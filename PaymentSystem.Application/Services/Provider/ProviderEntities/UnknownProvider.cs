@@ -1,10 +1,9 @@
 ﻿using Common.Enums;
 using Common.ResponseDtos;
 using PaymentSystem.ApplicationLayer.Exceptions;
-using PaymentSystem.ApplicationLayer.Providers.Interfaces;
-using PaymentSystem.ApplicationLayer.Services.Payment.Models;
+using PaymentSystem.ApplicationLayer.Services.Provider.ProviderEntities.Interfaces;
 
-namespace PaymentSystem.ApplicationLayer.Providers
+namespace PaymentSystem.ApplicationLayer.Services.Provider.ProviderEntities
 {
     public class UnknownProvider : IProvider
     {
@@ -13,7 +12,7 @@ namespace PaymentSystem.ApplicationLayer.Providers
             ProviderType = ProviderType.UnknownProvider;
         }
 
-        public Response SendPayment(Payment payment)
+        public Response SendPayment(Payment.Models.Payment payment)
         {
             throw new ProviderNotFoundException(payment.Phone[..3]);
         }

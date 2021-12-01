@@ -5,6 +5,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using PaymentSystem.Infrastructure;
+using Serilog;
 
 namespace PaymentSystemApi
 {
@@ -20,6 +22,7 @@ namespace PaymentSystemApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "PaymentSystemApi", Version = "v1"});
             });
+            services.AddInfrastructureServices(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -33,6 +36,7 @@ namespace PaymentSystemApi
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSerilogRequestLogging();
             app.UseRouting();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

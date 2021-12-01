@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using PaymentSystem.ApplicationLayer.Services.Interfaces;
-using PaymentSystem.Infrastructure.Data;
-using PaymentSystem.Infrastructure.Models;
+using PaymentSystem.ApplicationLayer.Data;
+using PaymentSystem.ApplicationLayer.Data.Interfaces;
+using PaymentSystem.ApplicationLayer.Services.Payment.Models;
 
 namespace PaymentSystem.Infrastructure.Repository.PaymentRepository
 {

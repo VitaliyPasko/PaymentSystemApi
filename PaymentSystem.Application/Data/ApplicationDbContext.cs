@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PaymentSystem.Infrastructure.Data.EntitiesMaps;
-using PaymentSystem.Infrastructure.Models;
+using PaymentSystem.ApplicationLayer.Data.EntitiesMaps;
+using PaymentSystem.ApplicationLayer.Services.Payment.Models;
 
-namespace PaymentSystem.Infrastructure.Data
+namespace PaymentSystem.ApplicationLayer.Data
 {
     public class ApplicationDbContext : DbContext
     {

@@ -9,14 +9,11 @@ namespace PaymentSystem.ApplicationLayer.Services.ProviderDeterminantService
 {
     public class ProviderDeterminantService : IProviderDeterminantService
     {
-        private readonly IProviderDeterminantService _providerDeterminantService;
         private readonly ProviderCollection _providerCollection;
 
         public ProviderDeterminantService(
-            IProviderDeterminantService providerDeterminantService, 
             ProviderCollection providerCollection)
         {
-            _providerDeterminantService = providerDeterminantService;
             _providerCollection = providerCollection;
         }
 

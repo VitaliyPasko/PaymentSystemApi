@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace PaymentSystem.ApplicationLayer.Services.Interfaces
+namespace PaymentSystem.ApplicationLayer.Data.Interfaces
 {
     public interface IApplicationRepository<T> where T : class
     {

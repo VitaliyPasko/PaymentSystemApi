@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PaymentSystem.Infrastructure.Models;
+using PaymentSystem.ApplicationLayer.Services.PaymentService.Models;
 
-namespace PaymentSystem.Infrastructure.Data.EntitiesMaps
+namespace PaymentSystem.ApplicationLayer.Data.EntitiesMaps
 {
     public class PaymentMap : IEntityTypeConfiguration<Payment>
     {

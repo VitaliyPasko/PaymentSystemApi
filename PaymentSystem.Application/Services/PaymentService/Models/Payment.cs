@@ -1,6 +1,6 @@
 ﻿using Common.Enums;
 
-namespace PaymentSystem.Infrastructure.Models
+namespace PaymentSystem.ApplicationLayer.Services.PaymentService.Models
 {
     public class Payment
     {

@@ -55,20 +55,22 @@ namespace PaymentSystem.ApplicationLayer.Services.PaymentService
                 if (isValidAmount && isValidPhone)
                 {
                     var provider = _providerDeterminantService.GetProvider(paymentDto.Phone);
+                    
+                    if (provider.ProviderType == ProviderType.UnknownProvider)
+                        throw new ProviderNotFoundException(paymentDto.Phone[..3]);
+                    
                     var payment = paymentDto.MapToPayment(provider.ProviderType);
                     await _paymentRepository.Add(payment);
                     var result = provider.SendPayment(payment);
                     _logger.LogInformation("{@Service}. Ответ от провайдера: {@Result}. RequestId: {@RequestId}", 
                         _type, result, requestId);
                     
-                    // if (result.StatusCode is not StatusCode.Success && result.StatusCode is not StatusCode.ServiceUnavailable)
-                    //     return result;
-                    // if (result.StatusCode == StatusCode.ServiceUnavailable)
-                        payment.Status = result.StatusCode.MapToPaymentStatus();
-
+                    payment.Status = result.StatusCode.MapToPaymentStatus();
                     await _paymentRepository.Update(payment);
+                    
                     _logger.LogWarning("{@Service}. Результат обработки платежа: {@Payment}.  Данные: {@Result}.  {@RequestId}", 
                         _type,  payment, result, requestId);
+                    
                     return result;
                 }
                 

@@ -23,12 +23,32 @@ namespace PaymentSystem.IntegrationTests
     public class PaymentServiceTests
     {
         [Fact]
+        public async Task AddPayment_Returns_Success()
+        {
+            // Arrange
+            WebApplicationFactory<Startup> webHost = Utilities.SubstituteDbOnTestDb();
+            HttpClient httpClient = webHost.CreateClient();
+
+            // Act
+            PaymentDto payment = Utilities.GetValidPaymentDto();
+            var content = new StringContent(JsonSerializer.Serialize(payment), Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await httpClient.PostAsync("api/payments", content);
+
+            // Assert
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var result = JsonSerializer.Deserialize<Response>(jsonString);
+
+            response.StatusCode.Should().BeEquivalentTo(StatusCodes.Status200OK);
+            result.Message.Should().BeEquivalentTo("Платеж пополнен успешно.");
+            result.StatusCode.Should().BeEquivalentTo(StatusCode.Success);
+        }
+        
+        [Fact]
         public async Task AddPayment_Returns_UnableError()
         {
             // Arrange
             WebApplicationFactory<Startup> webHost =
-                Utilities.SubstituteOnFakeProviderDeterminantGeneratingDecliningRequestProvider();
-
+                Utilities.SubstituteOnFakeDecliningRequestProvider();
             HttpClient httpClient = webHost.CreateClient();
 
             // Act
@@ -43,6 +63,28 @@ namespace PaymentSystem.IntegrationTests
             response.StatusCode.Should().BeEquivalentTo(StatusCodes.Status200OK);
             result.Message.Should().BeEquivalentTo("Платеж отклонен.");
             result.StatusCode.Should().BeEquivalentTo(StatusCode.UnableError);
+        }
+        
+        [Fact]
+        public async Task AddPayment_Returns_UnavailableService()
+        {
+            // Arrange
+            WebApplicationFactory<Startup> webHost =
+                Utilities.SubstituteOnFakeUnavailableRequestProvider();
+            HttpClient httpClient = webHost.CreateClient();
+
+            // Act
+            PaymentDto payment = Utilities.GetValidPaymentDto();
+            var content = new StringContent(JsonSerializer.Serialize(payment), Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await httpClient.PostAsync("api/payments", content);
+
+            // Assert
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var result = JsonSerializer.Deserialize<Response>(jsonString);
+
+            response.StatusCode.Should().BeEquivalentTo(StatusCodes.Status200OK);
+            result.Message.Should().BeEquivalentTo("Сервис недоступен.");
+            result.StatusCode.Should().BeEquivalentTo(StatusCode.ServiceUnavailable);
         }
     }
 }

@@ -17,7 +17,27 @@ namespace PaymentSystem.IntegrationTests.Helpers
         private static Random _random = new Random();
         private static string _connectionString =
             "Host=localhost;Port=5432;Database=pay-sys-test;Username=postgres;Password=8524";
-        public static WebApplicationFactory<Startup> SubstituteOnFakeProviderDeterminantGeneratingDecliningRequestProvider()
+        
+        public static WebApplicationFactory<Startup> SubstituteDbOnTestDb()
+        {
+            return new WebApplicationFactory<Startup>().WithWebHostBuilder(builder =>
+            {
+                builder.ConfigureTestServices(services =>
+                {
+                    var dbContextDescriptor = services.SingleOrDefault(d =>
+                        d.ServiceType == typeof(DbContextOptions<ApplicationDbContext>));
+
+                    services.Remove(dbContextDescriptor);
+
+                    services.AddDbContext<ApplicationDbContext>(options =>
+                    {
+                        options.UseNpgsql(_connectionString);
+                    });
+                });
+            });
+        }
+        
+        public static WebApplicationFactory<Startup> SubstituteOnFakeDecliningRequestProvider()
         {
             return new WebApplicationFactory<Startup>().WithWebHostBuilder(builder =>
             {
@@ -41,13 +61,38 @@ namespace PaymentSystem.IntegrationTests.Helpers
                 });
             });
         }
+        
+        public static WebApplicationFactory<Startup> SubstituteOnFakeUnavailableRequestProvider()
+        {
+            return new WebApplicationFactory<Startup>().WithWebHostBuilder(builder =>
+            {
+                builder.ConfigureTestServices(services =>
+                {
+                    var dbContextDescriptor = services.SingleOrDefault(d =>
+                        d.ServiceType == typeof(DbContextOptions<ApplicationDbContext>));
+
+                    services.Remove(dbContextDescriptor);
+
+                    services.AddDbContext<ApplicationDbContext>(options =>
+                    {
+                        options.UseNpgsql(_connectionString);
+                    });
+                    
+                    var providerDeterminant =
+                        services.SingleOrDefault(s => s.ServiceType == typeof(IProviderDeterminantService));
+                    services.Remove(providerDeterminant);
+                    services
+                        .AddTransient<IProviderDeterminantService, FakeProviderDeterminantServiceGeneratingUnavailable>();
+                });
+            });
+        }
 
         public static PaymentDto GetValidPaymentDto()
         {
             return new PaymentDto
             {
                 Amount = 777,
-                Phone = "7598989885",
+                Phone = "7058989885",
                 ExternalNumber = Guid.NewGuid().ToString()
             };
         }

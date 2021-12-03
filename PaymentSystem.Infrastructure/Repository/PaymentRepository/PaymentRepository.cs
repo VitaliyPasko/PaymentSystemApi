@@ -16,13 +16,13 @@ namespace PaymentSystem.Infrastructure.Repository.PaymentRepository
 
         public async Task Add(Payment payment)
         {
-            await _db.AddAsync(payment);
+            await _db.Payments.AddAsync(payment);
             await _db.SaveChangesAsync();
         }
 
         public async Task Update(Payment payment)
         { 
-            _db.Update(payment);
+            _db.Payments.Update(payment);
             await _db.SaveChangesAsync();
         }
     }

@@ -61,9 +61,9 @@ namespace PaymentSystem.ApplicationLayer.Services.PaymentService
                     _logger.LogInformation("{@Service}. Ответ от провайдера: {@Result}. RequestId: {@RequestId}", 
                         _type, result, requestId);
                     
-                    if (result.StatusCode is not StatusCode.Success && result.StatusCode is not StatusCode.ServiceUnavailable)
-                        return result;
-                    if (result.StatusCode == StatusCode.ServiceUnavailable)
+                    // if (result.StatusCode is not StatusCode.Success && result.StatusCode is not StatusCode.ServiceUnavailable)
+                    //     return result;
+                    // if (result.StatusCode == StatusCode.ServiceUnavailable)
                         payment.Status = result.StatusCode.MapToPaymentStatus();
 
                     await _paymentRepository.Update(payment);

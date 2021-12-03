@@ -7,12 +7,14 @@ using System.Threading.Tasks;
 using Common.Enums;
 using Common.ResponseDtos;
 using FluentAssertions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using PaymentSystem.ApplicationLayer.Services.PaymentService.Dto;
 using PaymentSystem.ApplicationLayer.Services.ProviderDeterminantService.Interfaces;
 using PaymentSystem.IntegrationTests.Fakes.FakeServices;
+using PaymentSystem.IntegrationTests.Helpers;
 using PaymentSystemApi;
 using Xunit;
 
@@ -21,68 +23,28 @@ namespace PaymentSystem.IntegrationTests
     public class PaymentServiceTests
     {
         [Fact]
-        public async Task CheckStatus_SendRequest_ShouldReturnOk()
-        {
-            // Arrange
-
-            WebApplicationFactory<Startup> webHost = new WebApplicationFactory<Startup>().WithWebHostBuilder(builder =>
-            {
-                
-            });
-
-            HttpClient httpClient = webHost.CreateClient();
-
-            // Act
-            PaymentDto payment = new ()
-            {
-                Amount = 145,
-                Phone = "7055779783",
-                ExternalNumber = "a0c4a3fd-e23b-41b5-a18d-48d75c2fe730"
-            };
-            var content = new StringContent(JsonSerializer.Serialize(payment), Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await httpClient.PostAsync("api/payments", content);
-
-            // Assert
-
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-        }
-        
-        [Fact]
         public async Task AddPayment_Returns_UnableError()
         {
             // Arrange
-
-            WebApplicationFactory<Startup> webHost = new WebApplicationFactory<Startup>().WithWebHostBuilder(builder =>
-            {
-                builder.ConfigureTestServices(services =>
-                {
-                    var providerDeterminant =
-                        services.SingleOrDefault(s => s.ServiceType == typeof(IProviderDeterminantService));
-                    services.Remove(providerDeterminant);
-                    services
-                        .AddTransient<IProviderDeterminantService, FakeProviderDeterminantServiceGeneratingDeclining>();
-                });
-            });
+            WebApplicationFactory<Startup> webHost =
+                Utilities.SubstituteOnFakeProviderDeterminantGeneratingDecliningRequestProvider();
 
             HttpClient httpClient = webHost.CreateClient();
 
             // Act
-            PaymentDto payment = new ()
-            {
-                Amount = 145,
-                Phone = "7055779783",
-                ExternalNumber = "a0c4a3fd-e23b-41b5-a18d-48d75c2fe730"
-            };
+            PaymentDto payment = Utilities.GetValidPaymentDto();
             var content = new StringContent(JsonSerializer.Serialize(payment), Encoding.UTF8, "application/json");
             HttpResponseMessage response = await httpClient.PostAsync("api/payments", content);
 
             // Assert
-
             var jsonString = await response.Content.ReadAsStringAsync();
             var result = JsonSerializer.Deserialize<Response>(jsonString);
 
+            response.StatusCode.Should().BeEquivalentTo(StatusCodes.Status200OK);
             result.Message.Should().BeEquivalentTo("Платеж отклонен.");
             result.StatusCode.Should().BeEquivalentTo(StatusCode.UnableError);
         }
+        
+        
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Common.Enums;
 
-namespace PaymentSystem.ApplicationLayer.Exceptions
+namespace PaymentSystem.ApplicationLayer.Extensions
 {
     public static class StatusCodeMap
     {

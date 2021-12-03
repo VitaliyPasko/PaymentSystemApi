@@ -2,9 +2,12 @@
 using System.Threading.Tasks;
 using Common.Enums;
 using Common.ResponseDtos;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Primitives;
 using PaymentSystem.ApplicationLayer.Data.Interfaces;
 using PaymentSystem.ApplicationLayer.Exceptions;
+using PaymentSystem.ApplicationLayer.Extensions;
 using PaymentSystem.ApplicationLayer.Services.ErrorIdentifierService.Interfaces;
 using PaymentSystem.ApplicationLayer.Services.PaymentService.Dto;
 using PaymentSystem.ApplicationLayer.Services.PaymentService.Interfaces;
@@ -21,21 +24,25 @@ namespace PaymentSystem.ApplicationLayer.Services.PaymentService
         private readonly IApplicationRepository<Payment> _paymentRepository;
         private readonly IProviderDeterminantService _providerDeterminantService;
         private readonly IPaymentValidationService _paymentValidationService;
-        private readonly IErrorIdentifierService<PaymentDto> _identifierService;
+        private readonly IErrorIdentifierService<PaymentDto> _errorIdentifierService;
         private readonly IProviderService _providerService;
+        private readonly ILogger<PaymentService> _logger;
+        private readonly Type _type;
 
         public PaymentService(IApplicationRepository<
             Payment> paymentRepository, 
             IProviderDeterminantService providerDeterminantService, 
             IPaymentValidationService paymentValidationService, 
             IErrorIdentifierService<PaymentDto> identifierService, 
-            IProviderService providerService)
+            IProviderService providerService, ILogger<PaymentService> logger)
         {
             _paymentRepository = paymentRepository;
             _providerDeterminantService = providerDeterminantService;
             _paymentValidationService = paymentValidationService;
-            _identifierService = identifierService;
+            _errorIdentifierService = identifierService;
             _providerService = providerService;
+            _logger = logger;
+            _type = GetType();
         }
 
         public async Task<Response> CreatePayment(PaymentDto paymentDto, StringValues requestId)
@@ -51,22 +58,67 @@ namespace PaymentSystem.ApplicationLayer.Services.PaymentService
                     var payment = paymentDto.MapToPayment(provider.ProviderType);
                     var result = provider.SendPayment(payment);
                     
+                    _logger.LogInformation("{@Service}. Ответ от провайдера: {@Result}. RequestId: {@RequestId}", 
+                        _type, result, requestId);
+                    
                     if (result.StatusCode is not StatusCode.Success && result.StatusCode is not StatusCode.ServiceUnavailable)
                         return result;
                     if (result.StatusCode == StatusCode.ServiceUnavailable)
                         payment.Status = result.StatusCode.MapToPaymentStatus();
                     await _paymentRepository.Add(payment);
                 }
+                
+                _logger.LogWarning("{@Service}. Валидация провалилась. IsValidAmount: {@IsValidAmount}. isValidPhone: {@IsValidPhone} Данные: {@Payment}. {@RequestId}", 
+                    _type, isValidAmount, isValidPhone, paymentDto, requestId);
+                
                 return new Response
                 {
                     Message = "Валидация провалилась.",
                     StatusCode = StatusCode.ValidationProblem
                 };
             }
+            catch (ProviderNotFoundException e)
+            {
+                _logger.LogTrace(e, e.Message);
+                _logger.LogError("{@Service}. Ошибка: {@Message}. Данные: {@Data}. RequestId: {@RequestId}",
+                    _type, e.Message, paymentDto, requestId);
+                return new Response()
+                {
+                    Message = $"Провайдера с таким префиксом не найдено: {paymentDto.Phone[..3]}",
+                    StatusCode = StatusCode.ProviderNotFound
+                };
+            }
+            catch (DbUpdateException e)
+            {
+                _logger.LogTrace(e, e.Message);
+                _logger.LogError("{@Service}. Ошибка добавления записи в базу данных: {@Message}. Данные: {@Data}. RequestId: {@RequestId}",
+                    _type, e.Message, paymentDto, requestId);
+                
+                var result = new Response();
+                var isExternalNumberDuplicateError = _errorIdentifierService.IdentifyErrorForExternalNumber(e, paymentDto);
+                if (isExternalNumberDuplicateError)
+                {
+                    result.Message = "Платеж не удался. Повторяющийся ExternalNumber";
+                    result.StatusCode = StatusCode.DuplicateExternalNumber;
+                }
+                else
+                {
+                    result.Message = "Платеж не удался";
+                    result.StatusCode = StatusCode.UnableError;
+                }
+                
+                return result;
+            }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                _logger.LogTrace(e, e.Message);
+                _logger.LogError("{@Service}. Ошибка: {@Message}. Данные: {@Data}. RequestId: {@RequestId}",
+                    _type, e.Message, paymentDto, requestId);
+                return new Response
+                {
+                    Message = "Платеж не удался.",
+                    StatusCode = StatusCode.UnableError
+                };
             }
         }
     }

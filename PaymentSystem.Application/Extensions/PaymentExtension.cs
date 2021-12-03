@@ -2,7 +2,7 @@
 using PaymentSystem.ApplicationLayer.Services.PaymentService.Dto;
 using PaymentSystem.ApplicationLayer.Services.PaymentService.Models;
 
-namespace PaymentSystem.ApplicationLayer.Exceptions
+namespace PaymentSystem.ApplicationLayer.Extensions
 {
     public static class PaymentExtension
     {

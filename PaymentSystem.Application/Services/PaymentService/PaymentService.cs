@@ -45,7 +45,7 @@ namespace PaymentSystem.ApplicationLayer.Services.PaymentService
             _type = GetType();
         }
 
-        public async Task<Response> CreatePayment(PaymentDto paymentDto, StringValues requestId)
+        public async Task<Response> AddPayment(PaymentDto paymentDto, StringValues requestId)
         {
             try
             {
@@ -54,10 +54,10 @@ namespace PaymentSystem.ApplicationLayer.Services.PaymentService
 
                 if (isValidAmount && isValidPhone)
                 {
-                    IProvider provider = _providerDeterminantService.GetProvider(paymentDto.Phone);
+                    var provider = _providerDeterminantService.GetProvider(paymentDto.Phone);
                     var payment = paymentDto.MapToPayment(provider.ProviderType);
+                    await _paymentRepository.Add(payment);
                     var result = provider.SendPayment(payment);
-                    
                     _logger.LogInformation("{@Service}. Ответ от провайдера: {@Result}. RequestId: {@RequestId}", 
                         _type, result, requestId);
                     
@@ -65,7 +65,11 @@ namespace PaymentSystem.ApplicationLayer.Services.PaymentService
                         return result;
                     if (result.StatusCode == StatusCode.ServiceUnavailable)
                         payment.Status = result.StatusCode.MapToPaymentStatus();
-                    await _paymentRepository.Add(payment);
+
+                    await _paymentRepository.Update(payment);
+                    _logger.LogWarning("{@Service}. Результат обработки платежа: {@Payment}.  Данные: {@Result}.  {@RequestId}", 
+                        _type,  payment, result, requestId);
+                    return result;
                 }
                 
                 _logger.LogWarning("{@Service}. Валидация провалилась. IsValidAmount: {@IsValidAmount}. isValidPhone: {@IsValidPhone} Данные: {@Payment}. {@RequestId}", 

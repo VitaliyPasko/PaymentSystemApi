@@ -14,9 +14,15 @@ namespace PaymentSystem.Infrastructure.Repository.PaymentRepository
             _db = db;
         }
 
-        public async Task Add(Payment entity)
+        public async Task Add(Payment payment)
         {
-            await _db.AddAsync(entity);
+            await _db.AddAsync(payment);
+            await _db.SaveChangesAsync();
+        }
+
+        public async Task Update(Payment payment)
+        { 
+            _db.Update(payment);
             await _db.SaveChangesAsync();
         }
     }

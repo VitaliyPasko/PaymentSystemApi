@@ -35,7 +35,7 @@ namespace PaymentSystem.Infrastructure.Controllers
                 _logger.LogInformation("{@Controller}.Create Запрос {@Payment}. RequestId: {@RequestId}", 
                     _type, payment, requestId);
                 
-                var result = await _paymentService.CreatePayment(payment, requestId);
+                var result = await _paymentService.AddPayment(payment, requestId);
             
                 return Ok(result);
             }

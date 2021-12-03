@@ -4,9 +4,15 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Common.Enums;
+using Common.ResponseDtos;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.DependencyInjection;
 using PaymentSystem.ApplicationLayer.Services.PaymentService.Dto;
+using PaymentSystem.ApplicationLayer.Services.ProviderDeterminantService.Interfaces;
+using PaymentSystem.IntegrationTests.Fakes.FakeServices;
 using PaymentSystemApi;
 using Xunit;
 
@@ -42,13 +48,20 @@ namespace PaymentSystem.IntegrationTests
         }
         
         [Fact]
-        public async Task CheckStatus_SendRequest_ShouldReturnOk2()
+        public async Task AddPayment_Returns_UnableError()
         {
             // Arrange
 
             WebApplicationFactory<Startup> webHost = new WebApplicationFactory<Startup>().WithWebHostBuilder(builder =>
             {
-                
+                builder.ConfigureTestServices(services =>
+                {
+                    var providerDeterminant =
+                        services.SingleOrDefault(s => s.ServiceType == typeof(IProviderDeterminantService));
+                    services.Remove(providerDeterminant);
+                    services
+                        .AddTransient<IProviderDeterminantService, FakeProviderDeterminantServiceGeneratingDeclining>();
+                });
             });
 
             HttpClient httpClient = webHost.CreateClient();
@@ -65,7 +78,11 @@ namespace PaymentSystem.IntegrationTests
 
             // Assert
 
-            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            var jsonString = await response.Content.ReadAsStringAsync();
+            var result = JsonSerializer.Deserialize<Response>(jsonString);
+
+            result.Message.Should().BeEquivalentTo("Платеж отклонен.");
+            result.StatusCode.Should().BeEquivalentTo(StatusCode.UnableError);
         }
     }
 }

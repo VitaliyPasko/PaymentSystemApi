@@ -44,7 +44,5 @@ namespace PaymentSystem.IntegrationTests
             result.Message.Should().BeEquivalentTo("Платеж отклонен.");
             result.StatusCode.Should().BeEquivalentTo(StatusCode.UnableError);
         }
-        
-        
     }
 }

@@ -4,6 +4,7 @@
     {
         New = 1,
         Pending,
-        Error
+        Error,
+        Success
     }
 }

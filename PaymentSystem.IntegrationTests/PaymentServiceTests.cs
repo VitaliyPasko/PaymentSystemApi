@@ -34,9 +34,12 @@ namespace PaymentSystem.IntegrationTests
         [Fact]
         public async Task AddPayment_Returns_Success()
         {
+            // Arrange
+            ApplicationDbContext dbContext =
+                _webHost.Services.CreateScope().ServiceProvider.GetService<ApplicationDbContext>()!;
             // Act
-            PaymentDto payment = Utilities.GetValidPaymentDto();
-            var content = new StringContent(JsonSerializer.Serialize(payment), Encoding.UTF8, "application/json");
+            PaymentDto paymentDto = Utilities.GetValidPaymentDto();
+            var content = new StringContent(JsonSerializer.Serialize(paymentDto), Encoding.UTF8, "application/json");
             HttpResponseMessage response = await _httpClient.PostAsync("api/payments", content);
 
             // Assert
@@ -46,6 +49,8 @@ namespace PaymentSystem.IntegrationTests
             response.StatusCode.Should().BeEquivalentTo(StatusCodes.Status200OK);
             result.Message.Should().BeEquivalentTo("Платеж пополнен успешно.");
             result.StatusCode.Should().BeEquivalentTo(StatusCode.Success);
+            var payment = await dbContext.Payments.FirstOrDefaultAsync(p => p.Phone == paymentDto.Phone && p.ExternalNumber == paymentDto.ExternalNumber);
+            payment.Status.Should().BeEquivalentTo(PaymentStatus.Success);
         }
         
         [Fact]
@@ -133,20 +138,24 @@ namespace PaymentSystem.IntegrationTests
             // Arrange
             WebApplicationFactory<Startup> webHost =
                 Utilities.SubstituteOnFakeDecliningRequestProvider();
+            ApplicationDbContext dbContext =
+                _webHost.Services.CreateScope().ServiceProvider.GetService<ApplicationDbContext>()!;
             HttpClient httpClient = webHost.CreateClient();
 
             // Act
-            PaymentDto payment = Utilities.GetValidPaymentDto();
-            var content = new StringContent(JsonSerializer.Serialize(payment), Encoding.UTF8, "application/json");
+            PaymentDto paymentDto = Utilities.GetValidPaymentDto();
+            var content = new StringContent(JsonSerializer.Serialize(paymentDto), Encoding.UTF8, "application/json");
             HttpResponseMessage response = await httpClient.PostAsync("api/payments", content);
 
             // Assert
             var jsonString = await response.Content.ReadAsStringAsync();
             var result = JsonSerializer.Deserialize<Response>(jsonString);
-
+            var payment = await dbContext.Payments.FirstOrDefaultAsync(p => p.Phone == paymentDto.Phone && p.ExternalNumber == paymentDto.ExternalNumber);
+            
             response.StatusCode.Should().BeEquivalentTo(StatusCodes.Status200OK);
             result.Message.Should().BeEquivalentTo("Платеж отклонен.");
             result.StatusCode.Should().BeEquivalentTo(StatusCode.UnableError);
+            payment.Status.Should().BeEquivalentTo(PaymentStatus.Error);
         }
         
         [Fact]
@@ -155,20 +164,24 @@ namespace PaymentSystem.IntegrationTests
             // Arrange
             WebApplicationFactory<Startup> webHost =
                 Utilities.SubstituteOnFakeUnavailableRequestProvider();
+            ApplicationDbContext dbContext =
+                _webHost.Services.CreateScope().ServiceProvider.GetService<ApplicationDbContext>()!;
             HttpClient httpClient = webHost.CreateClient();
 
             // Act
-            PaymentDto payment = Utilities.GetValidPaymentDto();
-            var content = new StringContent(JsonSerializer.Serialize(payment), Encoding.UTF8, "application/json");
+            PaymentDto paymentDto = Utilities.GetValidPaymentDto();
+            var content = new StringContent(JsonSerializer.Serialize(paymentDto), Encoding.UTF8, "application/json");
             HttpResponseMessage response = await httpClient.PostAsync("api/payments", content);
 
             // Assert
             var jsonString = await response.Content.ReadAsStringAsync();
             var result = JsonSerializer.Deserialize<Response>(jsonString);
-
+            var payment = await dbContext.Payments.FirstOrDefaultAsync(p => p.Phone == paymentDto.Phone && p.ExternalNumber == paymentDto.ExternalNumber);
+            
             response.StatusCode.Should().BeEquivalentTo(StatusCodes.Status200OK);
             result.Message.Should().BeEquivalentTo("Сервис недоступен.");
             result.StatusCode.Should().BeEquivalentTo(StatusCode.ServiceUnavailable);
+            payment.Status.Should().BeEquivalentTo(PaymentStatus.Pending);
         }
         
         [Fact]

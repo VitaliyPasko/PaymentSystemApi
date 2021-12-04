@@ -8,7 +8,7 @@ namespace PaymentSystem.ApplicationLayer.Extensions
         {
             return code switch
             {
-                StatusCode.Success => PaymentStatus.New,
+                StatusCode.Success => PaymentStatus.Success,
                 StatusCode.ServiceUnavailable => PaymentStatus.Pending,
                 StatusCode.UnableError => PaymentStatus.Error,
                 StatusCode.DuplicateExternalNumber => PaymentStatus.Error,

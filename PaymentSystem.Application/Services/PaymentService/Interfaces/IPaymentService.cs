@@ -7,6 +7,6 @@ namespace PaymentSystem.ApplicationLayer.Services.PaymentService.Interfaces
 {
     public interface IPaymentService
     {
-        Task<Response> CreatePayment(PaymentDto paymentDto, StringValues requestId);
+        Task<Response> AddPayment(PaymentDto paymentDto, StringValues requestId);
     }
 }

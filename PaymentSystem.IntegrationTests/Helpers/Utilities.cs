@@ -14,7 +14,7 @@ namespace PaymentSystem.IntegrationTests.Helpers
 {
     public static class Utilities
     {
-        private static Random _random = new Random();
+        private static Random _random = new ();
         private static string _connectionString =
             "Host=localhost;Port=5432;Database=pay-sys-test;Username=postgres;Password=8524";
         
@@ -92,7 +92,108 @@ namespace PaymentSystem.IntegrationTests.Helpers
             return new PaymentDto
             {
                 Amount = 777,
-                Phone = "7058989885",
+                Phone = "7055555555",
+                ExternalNumber = Guid.NewGuid().ToString()
+            };
+        }
+        
+        public static PaymentDto GetPaymentWithInvalidValidProvider()
+        {
+            return new PaymentDto
+            {
+                Amount = 777,
+                Phone = "9998989885",
+                ExternalNumber = Guid.NewGuid().ToString()
+            };
+        }
+        
+        public static PaymentDto GetPaymentWithInvalidValidPhone()
+        {
+            return new PaymentDto
+            {
+                Amount = 777,
+                Phone = "+77778989885",
+                ExternalNumber = Guid.NewGuid().ToString()
+            };
+        }
+        
+        public static PaymentDto GetPaymentWithInvalidValidAmount()
+        {
+            return new PaymentDto
+            {
+                
+                Amount = _random.Next(int.MinValue, 1),
+                Phone = "77778989885",
+                ExternalNumber = Guid.NewGuid().ToString()
+            };
+        }
+        
+        public static PaymentDto GetPaymentWith777Prefix()
+        {
+            return new PaymentDto
+            {
+                Amount = 555.5M,
+                Phone = "7775555555",
+                ExternalNumber = Guid.NewGuid().ToString()
+            };
+        }
+        
+        public static PaymentDto GetPaymentWith705Prefix()
+        {
+            return new PaymentDto
+            {
+                Amount = 555.5M,
+                Phone = "7055555555",
+                ExternalNumber = Guid.NewGuid().ToString()
+            };
+        }
+        
+        public static PaymentDto GetPaymentWith701Prefix()
+        {
+            return new PaymentDto
+            {
+                Amount = 555.5M,
+                Phone = "7015555555",
+                ExternalNumber = Guid.NewGuid().ToString()
+            };
+        }
+        
+        public static PaymentDto GetPaymentWith708Prefix()
+        {
+            return new PaymentDto
+            {
+                Amount = 555.5M,
+                Phone = "7085555555",
+                ExternalNumber = Guid.NewGuid().ToString()
+            };
+        }
+        
+        public static PaymentDto GetPaymentWith700Prefix()
+        {
+            return new PaymentDto
+            {
+                Amount = 555.5M,
+                Phone = "7005555555",
+                ExternalNumber = Guid.NewGuid().ToString()
+            };
+        }
+        
+        public static PaymentDto GetPaymentWith707Prefix()
+        {
+            return new PaymentDto
+            {
+                Amount = 555.5M,
+                Phone = "7075555555",
+                ExternalNumber = Guid.NewGuid().ToString()
+            };
+        }
+        
+        public static PaymentDto GetPaymentWith747Prefix()
+        {
+            return new PaymentDto
+            {
+                Amount = 555.5M,
+                Phone = "7475555555",
                 ExternalNumber = Guid.NewGuid().ToString()
             };
         }

@@ -3,7 +3,7 @@ using Common.ResponseDtos;
 using PaymentSystem.ApplicationLayer.Exceptions;
 using PaymentSystem.ApplicationLayer.Services.ProviderService.ProviderEntities.Interfaces;
 
-namespace PaymentSystem.ApplicationLayer.Services.ProviderService.ProviderEntities
+namespace PaymentSystem.ApplicationLayer.Services.ProviderDeterminantService.ProviderEntities
 {
     public class UnknownProvider : IProvider
     {

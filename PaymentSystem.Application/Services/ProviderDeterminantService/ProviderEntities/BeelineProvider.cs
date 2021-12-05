@@ -1,15 +1,19 @@
 ﻿using Common.Enums;
 using Common.ResponseDtos;
+using Microsoft.Extensions.Localization;
 using PaymentSystem.ApplicationLayer.Services.ProviderService.ProviderEntities.Interfaces;
+using SharedResourceLibrary;
 
-namespace PaymentSystem.ApplicationLayer.Services.ProviderService.ProviderEntities
+namespace PaymentSystem.ApplicationLayer.Services.ProviderDeterminantService.ProviderEntities
 {
     public class BeelineProvider : IProvider
     {
+        private readonly IStringLocalizer<SharedResource> _localizer;
         public ProviderType ProviderType { get; init; }
 
-        public BeelineProvider()
+        public BeelineProvider(IStringLocalizer<SharedResource> localizer)
         {
+            _localizer = localizer;
             ProviderType = ProviderType.Beeline;
         }
         
@@ -17,7 +21,7 @@ namespace PaymentSystem.ApplicationLayer.Services.ProviderService.ProviderEntiti
         {
             return new Response
             {
-                Message = "Платеж пополнен успешно.",
+                Message = _localizer["ResponseSuccess"],
                 StatusCode = StatusCode.Success
             };
         }

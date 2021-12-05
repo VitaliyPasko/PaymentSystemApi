@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Common.Enums;
 using Common.ResponseDtos;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Primitives;
 using PaymentSystem.ApplicationLayer.Data.Interfaces;
@@ -13,9 +14,8 @@ using PaymentSystem.ApplicationLayer.Services.PaymentService.Dto;
 using PaymentSystem.ApplicationLayer.Services.PaymentService.Interfaces;
 using PaymentSystem.ApplicationLayer.Services.PaymentService.Models;
 using PaymentSystem.ApplicationLayer.Services.ProviderDeterminantService.Interfaces;
-using PaymentSystem.ApplicationLayer.Services.ProviderService.Interfaces;
-using PaymentSystem.ApplicationLayer.Services.ProviderService.ProviderEntities.Interfaces;
 using PaymentSystem.ApplicationLayer.Services.ValidationService.Interfaces;
+using SharedResourceLibrary;
 
 namespace PaymentSystem.ApplicationLayer.Services.PaymentService
 {
@@ -25,28 +25,31 @@ namespace PaymentSystem.ApplicationLayer.Services.PaymentService
         private readonly IProviderDeterminantService _providerDeterminantService;
         private readonly IPaymentValidationService _paymentValidationService;
         private readonly IErrorIdentifierService<PaymentDto> _errorIdentifierService;
-        private readonly IProviderService _providerService;
         private readonly ILogger<PaymentService> _logger;
         private readonly Type _type;
+        private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
 
-        public PaymentService(IApplicationRepository<
-            Payment> paymentRepository, 
+
+        public PaymentService(
+            IApplicationRepository<Payment> paymentRepository, 
             IProviderDeterminantService providerDeterminantService, 
             IPaymentValidationService paymentValidationService, 
             IErrorIdentifierService<PaymentDto> identifierService, 
-            IProviderService providerService, ILogger<PaymentService> logger)
+            ILogger<PaymentService> logger, 
+            IStringLocalizer<SharedResource> sharedLocalizer)
         {
             _paymentRepository = paymentRepository;
             _providerDeterminantService = providerDeterminantService;
             _paymentValidationService = paymentValidationService;
             _errorIdentifierService = identifierService;
-            _providerService = providerService;
             _logger = logger;
+            _sharedLocalizer = sharedLocalizer;
             _type = GetType();
         }
 
         public async Task<Response> AddPayment(PaymentDto paymentDto, StringValues requestId)
         {
+            var a = _sharedLocalizer["ResponseSuccess"];
             try
             {
                 var isValidAmount = _paymentValidationService.ValidateAmount(paymentDto.Amount);
@@ -67,7 +70,6 @@ namespace PaymentSystem.ApplicationLayer.Services.PaymentService
                     
                     payment.Status = result.StatusCode.MapToPaymentStatus();
                     await _paymentRepository.Update(payment);
-                    
                     _logger.LogWarning("{@Service}. Результат обработки платежа: {@Payment}.  Данные: {@Result}.  {@RequestId}", 
                         _type,  payment, result, requestId);
                     
@@ -79,7 +81,7 @@ namespace PaymentSystem.ApplicationLayer.Services.PaymentService
                 
                 return new Response
                 {
-                    Message = "Валидация провалилась.",
+                    Message = _sharedLocalizer["ResponseValidationProblem"],
                     StatusCode = StatusCode.ValidationProblem
                 };
             }
@@ -90,7 +92,7 @@ namespace PaymentSystem.ApplicationLayer.Services.PaymentService
                     _type, e.Message, paymentDto, requestId);
                 return new Response()
                 {
-                    Message = $"Провайдера с таким префиксом не найдено: {paymentDto.Phone[..3]}",
+                    Message = $"{_sharedLocalizer["ResponseProviderNotFound"]} {paymentDto.Phone[..3]}",
                     StatusCode = StatusCode.ProviderNotFound
                 };
             }
@@ -104,12 +106,12 @@ namespace PaymentSystem.ApplicationLayer.Services.PaymentService
                 var isExternalNumberDuplicateError = _errorIdentifierService.IdentifyErrorForExternalNumber(e, paymentDto);
                 if (isExternalNumberDuplicateError)
                 {
-                    result.Message = "Платеж не удался. Повторяющийся ExternalNumber";
+                    result.Message = _sharedLocalizer["ResponseExternalNumberDuplicate"];
                     result.StatusCode = StatusCode.DuplicateExternalNumber;
                 }
                 else
                 {
-                    result.Message = "Платеж не удался";
+                    result.Message = _sharedLocalizer["ResponsePaymentError"];
                     result.StatusCode = StatusCode.UnableError;
                 }
                 
@@ -122,7 +124,7 @@ namespace PaymentSystem.ApplicationLayer.Services.PaymentService
                     _type, e.Message, paymentDto, requestId);
                 return new Response
                 {
-                    Message = "Платеж не удался.",
+                    Message = _sharedLocalizer["ResponsePaymentError"],
                     StatusCode = StatusCode.UnableError
                 };
             }

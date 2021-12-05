@@ -25,6 +25,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\PaymentSystem.Api\PaymentSystem.Api.csproj" />
+      <ProjectReference Include="..\PaymentSystem.Application\PaymentSystem.Application.csproj" />
     </ItemGroup>
 
 </Project>

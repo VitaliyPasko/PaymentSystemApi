@@ -1,0 +1,480 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\PaymentSystem.IntegrationTests\\PaymentSystem.IntegrationTests.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\Common\\Common.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\Common\\Common.csproj",
+        "projectName": "Common",
+        "projectPath": "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\Common\\Common.csproj",
+        "packagesPath": "C:\\Users\\pasko\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\Common\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\pasko\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\PaymentSystem.Api\\PaymentSystem.Api.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\PaymentSystem.Api\\PaymentSystem.Api.csproj",
+        "projectName": "PaymentSystem.Api",
+        "projectPath": "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\PaymentSystem.Api\\PaymentSystem.Api.csproj",
+        "packagesPath": "C:\\Users\\pasko\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\PaymentSystem.Api\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\pasko\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\PaymentSystem.Infrastructure\\PaymentSystem.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\PaymentSystem.Infrastructure\\PaymentSystem.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.12, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.12, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[5.0.12, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[2.10.0, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            },
+            "Serilog.Enrichers.Environment": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Serilog.Enrichers.Thread": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "Serilog.Settings.Configuration": {
+              "target": "Package",
+              "version": "[3.3.0, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[5.6.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[5.0.12, 5.0.12]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\PaymentSystem.Application\\PaymentSystem.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\PaymentSystem.Application\\PaymentSystem.Application.csproj",
+        "projectName": "PaymentSystem.Application",
+        "projectPath": "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\PaymentSystem.Application\\PaymentSystem.Application.csproj",
+        "packagesPath": "C:\\Users\\pasko\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\PaymentSystem.Application\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\pasko\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\Common\\Common.csproj": {
+                "projectPath": "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\Common\\Common.csproj"
+              },
+              "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\SharedResourceLibrary\\SharedResourceLibrary.csproj": {
+                "projectPath": "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\SharedResourceLibrary\\SharedResourceLibrary.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.12, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.12, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[5.0.12, )"
+            },
+            "Microsoft.Extensions.Localization.Abstractions": {
+              "target": "Package",
+              "version": "[5.0.12, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[5.0.10, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\PaymentSystem.Infrastructure\\PaymentSystem.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\PaymentSystem.Infrastructure\\PaymentSystem.Infrastructure.csproj",
+        "projectName": "PaymentSystem.Infrastructure",
+        "projectPath": "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\PaymentSystem.Infrastructure\\PaymentSystem.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\pasko\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\PaymentSystem.Infrastructure\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\pasko\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\Common\\Common.csproj": {
+                "projectPath": "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\Common\\Common.csproj"
+              },
+              "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\PaymentSystem.Application\\PaymentSystem.Application.csproj": {
+                "projectPath": "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\PaymentSystem.Application\\PaymentSystem.Application.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.AspNet.WebApi.Core": {
+              "target": "Package",
+              "version": "[5.2.6, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Core": {
+              "target": "Package",
+              "version": "[2.2.5, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.12, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[5.0.12, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.12, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[5.0.10, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\PaymentSystem.IntegrationTests\\PaymentSystem.IntegrationTests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\PaymentSystem.IntegrationTests\\PaymentSystem.IntegrationTests.csproj",
+        "projectName": "PaymentSystem.IntegrationTests",
+        "projectPath": "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\PaymentSystem.IntegrationTests\\PaymentSystem.IntegrationTests.csproj",
+        "packagesPath": "C:\\Users\\pasko\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\PaymentSystem.IntegrationTests\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\pasko\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\PaymentSystem.Api\\PaymentSystem.Api.csproj": {
+                "projectPath": "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\PaymentSystem.Api\\PaymentSystem.Api.csproj"
+              },
+              "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\PaymentSystem.Application\\PaymentSystem.Application.csproj": {
+                "projectPath": "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\PaymentSystem.Application\\PaymentSystem.Application.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "FluentAssertions": {
+              "target": "Package",
+              "version": "[5.10.3, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Testing": {
+              "target": "Package",
+              "version": "[5.0.12, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.12, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.11.0, )"
+            },
+            "coverlet.collector": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.4.1, )"
+            },
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.4.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\SharedResourceLibrary\\SharedResourceLibrary.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\SharedResourceLibrary\\SharedResourceLibrary.csproj",
+        "projectName": "SharedResourceLibrary",
+        "projectPath": "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\SharedResourceLibrary\\SharedResourceLibrary.csproj",
+        "packagesPath": "C:\\Users\\pasko\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pasko\\Desktop\\dfdf\\PaymentSystemApi\\SharedResourceLibrary\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\pasko\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

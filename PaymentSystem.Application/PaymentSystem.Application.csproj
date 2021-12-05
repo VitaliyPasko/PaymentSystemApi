@@ -10,6 +10,8 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Common\Common.csproj" />
+      <ProjectReference Include="..\SharedResourceLibrary\SharedResource.csproj" />
+      <ProjectReference Include="..\SharedResourceLibrary\SharedResourceLibrary.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -19,6 +21,7 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
       <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="5.0.12" />
+      <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="5.0.12" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
     </ItemGroup>
 

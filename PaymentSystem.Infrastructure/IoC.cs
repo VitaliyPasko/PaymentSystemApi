@@ -12,8 +12,6 @@ using PaymentSystem.ApplicationLayer.Services.PaymentService.Interfaces;
 using PaymentSystem.ApplicationLayer.Services.PaymentService.Models;
 using PaymentSystem.ApplicationLayer.Services.ProviderDeterminantService;
 using PaymentSystem.ApplicationLayer.Services.ProviderDeterminantService.Interfaces;
-using PaymentSystem.ApplicationLayer.Services.ProviderService;
-using PaymentSystem.ApplicationLayer.Services.ProviderService.Interfaces;
 using PaymentSystem.ApplicationLayer.Services.ValidationService;
 using PaymentSystem.ApplicationLayer.Services.ValidationService.Interfaces;
 using PaymentSystem.Infrastructure.Extensions;
@@ -35,7 +33,6 @@ namespace PaymentSystem.Infrastructure
             
             //Services
             services.AddTransient<IPaymentService, PaymentService>();
-            services.AddTransient<IProviderService, ProviderService>();
             services.AddTransient<IProviderDeterminantService, ProviderDeterminantService>();
             services.AddTransient(typeof(IErrorIdentifierService<>), typeof(ErrorIdentifierService<>));
             services.AddTransient<IPaymentValidationService, PaymentValidationService>();

@@ -3030,7 +3030,6 @@
           "Common": "1.0.0",
           "Microsoft.AspNet.WebApi.Core": "5.2.6",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
-          "Microsoft.EntityFrameworkCore": "5.0.12",
           "Microsoft.EntityFrameworkCore.Relational": "5.0.12",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "5.0.10",
           "PaymentSystem.Application": "1.0.0"
